@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Input;
 using System.Windows.Threading;
 
 namespace ArenaDeBatalha.GUI
@@ -89,6 +90,8 @@ namespace ArenaDeBatalha.GUI
         private void GameLopp(object sender, EventArgs e)
         {
             this.gameObjects.RemoveAll(x => !x.Active);
+
+            this.ProcessControls();
             foreach (GameObject go in this.gameObjects)
             {
                 go.UpdateObject();
@@ -108,6 +111,14 @@ namespace ArenaDeBatalha.GUI
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.DrawImage(this.screenBuffer, 0, 0);
+        }
+
+        private void ProcessControls()
+        {
+            if (Keyboard.IsKeyDown(Key.Left)) player.MoveLeft();
+            if (Keyboard.IsKeyDown(Key.Right)) player.MoveRight();
+            if (Keyboard.IsKeyDown(Key.Up)) player.MoveUp();
+            if (Keyboard.IsKeyDown(Key.Down)) player.MoveDown();
         }
 
 
