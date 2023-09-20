@@ -13,6 +13,7 @@ namespace ArenaDeBatalha.GameLogic
         {
             this.Speed = 10;
             this.Sound = Media.explosion_long;
+            this.Left = this.Bounds.Width / 2 - this.Width / 2;
         }
 
         public override Bitmap GetSprite()
