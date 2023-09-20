@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,7 +42,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameObject.cs" />
+    <Compile Include="Media.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Media.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Media.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Media.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exploshion_short.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\explosion_long.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\fundo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GameOver.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\inimigo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jogador.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Missile.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\projetil.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
