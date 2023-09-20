@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 
 namespace ArenaDeBatalha.GameLogic
 {
-    public class GameObject
+    public abstract class GameObject
     {
+        #region game object Props
         public Bitmap Sprite { get; set; }
         public bool Active { get; set; }
         public int Speed { get; set; }
@@ -22,8 +23,90 @@ namespace ArenaDeBatalha.GameLogic
         public Rectangle Rectangle { get; set; }
         public Stream Sound { get; set; }
         public Graphics Screen { get; set; }
-
         private SoundPlayer soundPlayer { get; set; }
+        #endregion
 
+
+        #region Game Objects Methods
+
+        public abstract Bitmap GetSprite();
+
+        public GameObject(Size bounds, Graphics screen)
+        {
+            this.Bounds = bounds;
+            this.Screen * screen;
+            this.Active = true;
+            this.soundPlayer = this.soundPlayer new SoundPlayer();
+            this.Sprite = this.GetSprite();
+            this.Rectangle = new Rectangle(this.Left, this.Top, this.Width, this.Height);
+        }
+
+        public virtual void UpdateObject()
+        {
+            this.Rectangle = new Rectangle(this.Left, this.Top, this.Width, this.Height);
+            this.Screen.DrawImage(this.Sprite, this.Rectangle);        
+        
+        }
+
+        public virtual void MoveLeft()
+        {
+            if(this.Left > 0)
+            {
+                this.Left -= this.Speed;
+            }
+        }
+
+        public virtual void MoveRight()
+        {
+            if (this.Left < this.Bounds.Width - this.Width)
+            {
+                this.Left += this.Speed;
+            }
+        }
+
+        public virtual void MoveDown()
+        {
+            
+            
+                this.Top += this.Speed;
+            
+        }
+
+        public virtual void MoveLeft()
+        {
+        
+                this.Top -= this.Speed;
+            
+        }
+
+        public bool IsOutOfBounds()
+        {
+            return
+                (this.Top > this.Bounds.Height + this.Height) ||
+                (this.Top < -this.Height) ||
+                (this.Left > this.Bounds.Width + this.Width) ||
+                (this.Left < -this.Width);
+        }
+
+        public void PlaySound()
+        {
+            soundPlayer.Stream = this.Sound;
+            soundPlayer.Play();
+        }
+
+        public bool IsCollidingWith(GameObject gameObject)
+        {
+            if (this.Rectangle.IntersectsWith(gameObject.Rectangle)
+            {
+                this.PlaySound();
+                return true;
+            } else { return false; }
+        }
+
+        public void Destroy()
+        {
+            this.Active = false;
+        }
+        #endregion
     }
 }
