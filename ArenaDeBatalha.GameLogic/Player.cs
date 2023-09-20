@@ -41,6 +41,15 @@ namespace ArenaDeBatalha.GameLogic
             { 
                 this.Top += this.Speed;
             }
+
+            
+        }
+
+        public GameObject Shoot()
+        {
+            Bullet bullet = new Bullet(this.Bounds, this.Screen, new Point(this.Left + this.Width/2, this.Top + this.Height/ 2 ));
+            bullet.Left -= bullet.Width / 2;
+            return bullet;
         }
     }
 

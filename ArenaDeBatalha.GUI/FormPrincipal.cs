@@ -16,6 +16,7 @@ namespace ArenaDeBatalha.GUI
 {
     public partial class FormPrincipal : Form
     {
+       
 
         DispatcherTimer gameLoopTimer {  get; set; }
 
@@ -30,6 +31,8 @@ namespace ArenaDeBatalha.GUI
         List<GameObject> gameObjects { get; set; }
 
         public Random random { get; set; }
+
+         bool canShoot;
         public FormPrincipal()
         {
             InitializeComponent();
@@ -76,6 +79,7 @@ namespace ArenaDeBatalha.GUI
         {
             this.gameLoopTimer.Start();
             this.enemySpawnTimer.Start();
+            this.canShoot = true;
         }
 
         public void SpawnEnemy(object sender, EventArgs e)
@@ -101,8 +105,10 @@ namespace ArenaDeBatalha.GUI
                     go.Destroy();
                 }
 
-                this.Invalidate();
+                
             }
+
+            this.Invalidate();
         }
 
        
@@ -119,6 +125,16 @@ namespace ArenaDeBatalha.GUI
             if (Keyboard.IsKeyDown(Key.Right)) player.MoveRight();
             if (Keyboard.IsKeyDown(Key.Up)) player.MoveUp();
             if (Keyboard.IsKeyDown(Key.Down)) player.MoveDown();
+            if (Keyboard.IsKeyDown(Key.Space) && canShoot)
+            {
+                this.gameObjects.Add(player.Shoot());
+                this.canShoot = false;
+                
+            }
+            if (Keyboard.IsKeyUp(Key.Space)) canShoot = true;
+            {
+                
+            }
         }
 
 
