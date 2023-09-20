@@ -34,9 +34,9 @@ namespace ArenaDeBatalha.GameLogic
         public GameObject(Size bounds, Graphics screen)
         {
             this.Bounds = bounds;
-            this.Screen * screen;
+            this.Screen = screen;
             this.Active = true;
-            this.soundPlayer = this.soundPlayer new SoundPlayer();
+            this.soundPlayer =  new SoundPlayer();
             this.Sprite = this.GetSprite();
             this.Rectangle = new Rectangle(this.Left, this.Top, this.Width, this.Height);
         }
@@ -72,12 +72,11 @@ namespace ArenaDeBatalha.GameLogic
             
         }
 
-        public virtual void MoveLeft()
+      public virtual void MoveUp()
         {
-        
-                this.Top -= this.Speed;
-            
+            this.Top -= this.Speed;
         }
+        
 
         public bool IsOutOfBounds()
         {
@@ -96,11 +95,14 @@ namespace ArenaDeBatalha.GameLogic
 
         public bool IsCollidingWith(GameObject gameObject)
         {
-            if (this.Rectangle.IntersectsWith(gameObject.Rectangle)
+            if (this.Rectangle.IntersectsWith(gameObject.Rectangle))
             {
+
                 this.PlaySound();
                 return true;
-            } else { return false; }
+
+            }
+            else { return false; }
         }
 
         public void Destroy()

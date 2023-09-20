@@ -38,6 +38,7 @@
             this.Name = "FormPrincipal";
             this.Text = "Arena De Batalha";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPrincipal_Paint);
             this.ResumeLayout(false);
 
         }
