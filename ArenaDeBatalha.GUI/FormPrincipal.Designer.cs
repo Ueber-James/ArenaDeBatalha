@@ -43,6 +43,7 @@
             this.Text = "Arena De Batalha";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.FormPrincipal_Paint);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormPrincipal_KeyDown);
             this.ResumeLayout(false);
 
         }

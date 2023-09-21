@@ -28,6 +28,8 @@ namespace ArenaDeBatalha.GUI
 
         Player player { get; set; }
 
+        GameOver gameOver { get; set; }
+
         List<GameObject> gameObjects { get; set; }
 
         public Random random { get; set; }
@@ -49,6 +51,7 @@ namespace ArenaDeBatalha.GUI
 
             this.background = new Background(this.screenBuffer.Size, this.screenPainter);
             this.player = new Player(this.screenBuffer.Size, this.screenPainter);
+            this.gameOver = new GameOver(this.screenBuffer.Size, this.screenPainter);
 
             this.gameObjects.Add(background);
             this.gameObjects.Add(player);
@@ -77,9 +80,26 @@ namespace ArenaDeBatalha.GUI
 
         public void StarGame()
         {
+            this.gameObjects.Clear();
+            this.gameObjects.Add(background);
+            this.gameObjects.Add(player);
+            this.player.SetStartPosition();
+            this.player.Active = true;
             this.gameLoopTimer.Start();
             this.enemySpawnTimer.Start();
             this.canShoot = true;
+        }
+
+        public void EndGame()
+        {
+            this.gameObjects.Clear();
+            this.gameLoopTimer.Stop();
+            this.enemySpawnTimer.Stop();
+            this.gameObjects.Add(background);
+            this.gameObjects.Add(gameOver);
+            this.background.UpdateObject();
+            this.gameOver.UpdateObject();
+            Invalidate();
         }
 
         public void SpawnEnemy(object sender, EventArgs e)
@@ -105,7 +125,28 @@ namespace ArenaDeBatalha.GUI
                     go.Destroy();
                 }
 
-                
+                if (go is Enemy)
+                {
+                    if (go.IsCollidingWith(player))
+                    {
+                        player.Destroy();
+                        player.PlaySound();
+                        EndGame();
+                        return;
+                    }
+
+
+                    foreach (GameObject bullet in this.gameObjects.Where(X => X is Bullet))
+                    {
+                        if (go.IsCollidingWith(bullet))
+                        {
+                            go.Destroy();
+                            bullet.Destroy();
+                        }
+                    }
+                }
+
+
             }
 
             this.Invalidate();
@@ -127,7 +168,7 @@ namespace ArenaDeBatalha.GUI
             if (Keyboard.IsKeyDown(Key.Down)) player.MoveDown();
             if (Keyboard.IsKeyDown(Key.Space) && canShoot)
             {
-                this.gameObjects.Add(player.Shoot());
+                this.gameObjects.Insert(1, player.Shoot());
                 this.canShoot = false;
                 
             }
@@ -141,6 +182,19 @@ namespace ArenaDeBatalha.GUI
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void FormPrincipal_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.R)
+            {
+                StarGame();
+            }
+
+            if (e.KeyCode == Keys.Escape)
+            {
+                Close();
+            }
         }
     }
 }
