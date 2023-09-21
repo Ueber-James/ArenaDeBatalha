@@ -1,5 +1,5 @@
 # ArenaDeBatalha
-Jogo simples para auxiliar na compreensão dos conceitos de programação orientada a objetos.
+Jogo simples para auxiliar na compreensão dos conceitos de programação orientada a objetos ultilizando a linguagem C#.
 
 ![image](https://github.com/Ueber-James/ArenaDeBatalha/assets/89108972/365a6e36-f006-49a9-9fe0-d4b59871427c)
 
